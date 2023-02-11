@@ -4,7 +4,7 @@ import {
   useGLTF,
   OrbitControls,
   ContactShadows,
-  Environment
+  Environment,
 } from "@react-three/drei";
 import { HexColorPicker } from "react-colorful";
 
@@ -14,8 +14,8 @@ function Shoe({ ...props }) {
   const { nodes, materials } = useGLTF("/shoe.gltf");
   const [hovered, set] = useState(null);
 
-  // Animate model
-  useFrame(state => {
+  //  => Animate model
+  useFrame((state) => {
     const t = state.clock.getElapsedTime();
     ref.current.rotation.z = -0.2 - (1 + Math.sin(t / 1.5)) / 20;
     ref.current.rotation.x = Math.cos(t / 4) / 8;
@@ -42,24 +42,24 @@ function Shoe({ ...props }) {
     <group
       ref={ref}
       dispose={null}
-      onPointerOver={e => {
+      onPointerOver={(e) => {
         e.stopPropagation();
         set(e.object.material.name);
       }}
-      onPointerOut={e => {
+      onPointerOut={(e) => {
         e.intersections.length === 0 && set(null);
       }}
       onPointerMissed={() => {
-        setState(prevState => ({
+        setState((prevState) => ({
           ...prevState,
-          current: null
+          current: null,
         }));
       }}
-      onClick={e => {
+      onClick={(e) => {
         e.stopPropagation();
-        setState(prevState => ({
+        setState((prevState) => ({
           ...prevState,
-          current: e.object.material.name
+          current: e.object.material.name,
         }));
       }}
     >
@@ -113,13 +113,13 @@ function Picker({ state, setState }) {
       <HexColorPicker
         className="picker"
         color={state.items[state.current]}
-        onChange={color =>
-          setState(prevState => ({
+        onChange={(color) =>
+          setState((prevState) => ({
             ...prevState,
             items: {
               ...prevState.items,
-              [state.current]: color
-            }
+              [state.current]: color,
+            },
           }))
         }
       />
@@ -139,8 +139,8 @@ function App() {
       sole: "#ffffff",
       stripes: "#ffffff",
       band: "#ffffff",
-      patch: "#ffffff"
-    }
+      patch: "#ffffff",
+    },
   });
 
   return (
